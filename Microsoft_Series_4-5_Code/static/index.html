@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Variation Generator</title>
+  <!-- Link to Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Link to our custom CSS file -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+    <nav class="bg-blue-500 p-4 flex justify-between items-center fixed top-0 left-0 w-full z-10">
+    <h1 class="text-white text-xl font-bold">Logo Variation Generator</h1>
+  </nav>
+  
+  <!-- Main content -->
+  <main class="container mx-auto p-4 pt-16">
+    <!-- Create a grid layout with two columns -->
+    <div id="logo-input" class="flex flex-col items-center justify-center space-y-4 mt-20">
+        <input id="logo-text" type="text" placeholder="Describe the logo you'd like to create..." class="w-3/4 text-2xl text-center border border-gray-300 px-4 py-2 rounded" required>
+        <button id="logo-generate" type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Generate</button>
+      </div>
+    <div id="logo-results" class="mt-10 hidden"></div>
+  </main>
+  <!-- Script for handling user input and fetch requests -->
+  <script src="/script.js"></script>
+</body>
+</html>

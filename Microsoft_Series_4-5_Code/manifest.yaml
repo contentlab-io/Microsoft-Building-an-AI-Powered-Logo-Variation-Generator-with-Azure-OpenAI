@@ -1,0 +1,55 @@
+# Deployment definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dall-e-app # The name of the Deployment
+spec:
+  replicas: 1 # The number of replicas (instances) of the app
+  selector:
+    matchLabels:
+      app: dall-e-app # The label that identifies the app
+  template:
+    metadata:
+      labels:
+        app: dall-e-app
+    spec:
+      containers:
+      - name: dall-e-app # The name of the container
+        image: <registry-name>.azurecr.io/<image-name> # The image to run in the container
+        ports:
+        - containerPort: 8000 # The port that the container exposes
+        resources:
+          requests:
+            cpu: 1 # The number of CPUs requested by the container
+            memory: 2Gi # The amount of memory requested by the container
+
+# Service definition
+apiVersion: v1
+kind: Service
+metadata:
+  name: dall-e-service # The name of the Service
+spec:
+  selector:
+    app: dall-e-app # The label that identifies the app
+  ports:
+  - protocol: TCP
+    port: 80 # The port that the Service exposes
+    targetPort: 8000 # The port that the Service forwards traffic to
+  type: LoadBalancer # The type of Service that assigns a public IP address and load balances traffic
+
+# Define an Ingress for the app
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dall-e-ingress # The name of the Ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: / # The path that matches incoming requests
+        pathType: Prefix 
+        backend:
+          service:
+            name: dall-e-service # The name of the Service that handles requests
+            port:
+              number: 80 # The port that the Service exposes
